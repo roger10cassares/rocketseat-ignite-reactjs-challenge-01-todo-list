@@ -16,26 +16,38 @@ export function TaskList() {
 
   function handleCreateNewTask() {
     // Crie uma nova task com um id random, não permita criar caso o título seja vazio.
-    const data = [{
-        id: 10,
+    const randomId = Math.floor(Math.random()*10000);
+    
+    if (newTaskTitle != '') {
+      setTasks([...tasks,{
+        id: randomId,
         title: newTaskTitle,
-        isComplete: true
-      }]
-    setTasks(data)
-    console.log(`newTaskTitle:${newTaskTitle}`)
-    console.log(`tasks:${JSON.stringify(tasks)}`)
+        isComplete: false
+      }])
+      console.log(`The add task was: ${JSON.stringify(newTaskTitle)}`)
+    } else {
+      // window.alert(`You cannot add an empty task!`)
+      console.log('You cannot add an empty task!')
+    }
   }
 
   function handleToggleTaskCompletion(id: number) {
     // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID
-    console.log(`handleToggleTaskCompletion:${8}`)
-
+    tasks.map(task => {
+      if (task.id == id){
+        task.isComplete = !task.isComplete
+        console.log(`The toggled task was: ${JSON.stringify(task.title)}`)
+        setTasks([...tasks])
+      }
+    })
   }
 
   function handleRemoveTask(id: number) {
     // Remova uma task da listagem pelo ID
-    console.log(`handleRemoveTask:${tasks}`)
-
+    let remainedTasks = tasks.filter(removedTask => removedTask.id != id) 
+    console.log(`The removed task id was: ${JSON.stringify(id)}`)
+    setTasks(remainedTasks)
+ 
   }
 
   return (
