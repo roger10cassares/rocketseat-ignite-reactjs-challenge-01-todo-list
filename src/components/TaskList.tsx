@@ -16,15 +16,15 @@ export function TaskList() {
 
   function handleCreateNewTask() {
     // Crie uma nova task com um id random, não permita criar caso o título seja vazio.
-    const randomId = Math.floor(Math.random()*10000);
-    
     if (newTaskTitle != '') {
+      const randomId = Math.floor(Math.random()*10000); // Refactored after the Official Response
       setTasks([...tasks,{
         id: randomId,
         title: newTaskTitle,
         isComplete: false
       }])
       console.log(`The add task was: ${JSON.stringify(newTaskTitle)}`)
+      setNewTaskTitle('') // Refactored after the Official Response
     } else {
       // window.alert(`You cannot add an empty task!`)
       console.log('You cannot add an empty task!')
@@ -47,7 +47,6 @@ export function TaskList() {
     let remainedTasks = tasks.filter(removedTask => removedTask.id != id) 
     console.log(`The removed task id was: ${JSON.stringify(id)}`)
     setTasks(remainedTasks)
- 
   }
 
   return (
