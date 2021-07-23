@@ -27,7 +27,7 @@ Then, access to the localhost address to access the React Application:
 
 
 
-## Solving explanation
+## Rogério's Solving Explanation
 
 ### handleCreateNewTask()
 
@@ -46,22 +46,21 @@ To store a new task in Tasks array, we should use `setTasks()` property from the
 Using the *immutability* concept, we now set the new value for the `Tasks` array using the `spread operator ...` as  the first element, and we edit the second element of the array according this new data. Before, we have to create a `randomId` and initializes the `isComplete` key of `Tasks` object with `false` to mark  the task with an not completed  when it is created. We could not be able to create an empty task.
 
 ```ts
-function handleCreateNewTask() {
+  function handleCreateNewTask() {
     // Crie uma nova task com um id random, não permita criar caso o título seja vazio.
-    const randomId = Math.floor(Math.random()*10000);
-    
     if (newTaskTitle != '') {
+      const randomId = Math.floor(Math.random()*10000); // Refactored after the Official Response
       setTasks([...tasks,{
         id: randomId,
         title: newTaskTitle,
         isComplete: false
       }])
       console.log(`The add task was: ${JSON.stringify(newTaskTitle)}`)
+      setNewTaskTitle('') // Refactored after the Official Response
     } else {
       // window.alert(`You cannot add an empty task!`)
       console.log('You cannot add an empty task!')
     }
-  }
 ```
 
 
@@ -89,9 +88,7 @@ Finally, we use the `setTasks` callback function from the `useState` Hook to ret
 
 
 
-
-
-### handleRemoveTask
+### handleRemoveTask(*id*: *number*)
 
 To remove the desired task, we need to create a new array based on the tasks array of the objects, but `filtering` just the requested task with that `id`.
 
@@ -110,7 +107,7 @@ From that moment we should return this array for the new value of the `setTasks`
 
 
 
-## Official response from this Challenge:
+## Official response from this Challenge
 
 The React Controled Component are that one that we handle its value saving the event of the component to the element value without using the <form/> element.
 
@@ -146,7 +143,7 @@ function handleCreateNewTask() {
 
 
 
-### handleRemoveTask()
+### handleRemoveTask(*id*: *number*)
 
 ```ts
   function handleRemoveTask(id: number) {
@@ -160,9 +157,24 @@ function handleCreateNewTask() {
 
 
 
+### handleToggleTaskCompletion(*id*: *number*)
 
 
 
+```ts
+  function handleToggleTaskCompletion(id: number) {
+      // Map the tasks array, take the id specific, change it and set the new value with setTask() callback
+      // For each mapped task (task ==>), we make the same verification we done in the return section.
+      // If task.id is true, we return the all old values from that task and edit isComplete with the opposite boolean state.
+      // If task.id is false, we retirn the exact task array.
+      const newTasks = task.map(task => task.id === id ? {
+          ...task,
+          isComplete: !task.isCOmplete
+      } : task);
+      
+      setTasks(newTasks);
+  }
+```
 
 
 
